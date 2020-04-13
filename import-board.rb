@@ -5,9 +5,9 @@ require 'uri'
 require 'cgi'
 
 POST_URL = 'https://the-post-url-of-your-flow.example.com/'
-BOARD_ID = 'your Trello Board ID (see README)'
 API_KEY = 'your Trello API Key (see README)'
 API_TOKEN = 'your Trello API Token (see README)'
+BOARD_ID = 'your Trello Board ID (see README)'
 
 uri = URI.parse(POST_URL)
 headers = {'Content-Type' => 'application/json'}
@@ -32,6 +32,7 @@ board.cards.each do |card|
   end.each do |attachment|
     base, ext = attachment[:name].split(/(?<=.)\.(?=[^.])(?!.*\.[^.])/)
     base = base.downcase.tr(' ', '-').gsub(/[^a-z0-9-]/, '')
+
     loop do
       fn = [base, ext].compact.join('.')
       break unless attachments.map{|a| a[:filename]}.include? fn
