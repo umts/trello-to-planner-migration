@@ -40,10 +40,8 @@ board.cards.each do |card|
       fn = [base, ext].compact.join('.')
     end
 
-    attachments << {
-      filename: fn,
-      url: CGI.unescape(attachment[:url].match(/backingUrl=(.*)/)[1])
-    }
+    url = attachment[:url].match(/backingUrl=(.*)/)&.[](1) || attachment[:url]
+    attachments << { filename: fn, url: CGI.unescape(url) }
   end
 
   body = {
