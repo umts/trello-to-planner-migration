@@ -32,11 +32,12 @@ board.cards.each do |card|
   end.each do |attachment|
     base, ext = attachment[:name].split(/(?<=.)\.(?=[^.])(?!.*\.[^.])/)
     base = base.downcase.tr(' ', '-').gsub(/[^a-z0-9-]/, '')
+    fn = [base, ext].compact.join('.')
 
     loop do
-      fn = [base, ext].compact.join('.')
       break unless attachments.map{|a| a[:filename]}.include? fn
       base = base.succ
+      fn = [base, ext].compact.join('.')
     end
 
     attachments << {
